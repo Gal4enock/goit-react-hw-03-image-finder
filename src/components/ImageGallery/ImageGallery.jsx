@@ -1,10 +1,12 @@
 import React from 'react';
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
-const ImageGallery = function ({list}) {
+import style from './ImageGallery.module.css'
+
+const ImageGallery = function ({list, toOpen}) {
   return (
-  <ul className="ImageGallery">
-      {list.map(el => <ImageGalleryItem item={el}/>)}
+  <ul className={style.ImageGallery}>
+      {list.map(el => <ImageGalleryItem toOpen={toOpen} key={el.id} item={el}/>)}
   </ul>
   )}
 

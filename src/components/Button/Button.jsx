@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Button = function () {
+import style from "./Button.module.css"
+
+const Button = function ({toAdd}) {
   return (
-    <button type='button'> Load more.. </button>
+    <button className={style.Button} onClick={toAdd} type='button'> Load more.. </button>
   )
 }
 export default Button;
