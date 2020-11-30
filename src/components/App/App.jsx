@@ -30,6 +30,7 @@ class App extends Component {
     }
   }
 
+  
   fetchImages = (query) => {
     this.setState({ loading: true });
     const { page } = this.state;
