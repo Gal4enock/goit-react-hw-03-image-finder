@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import Searchbar from '../Searchbar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import MyLoader from '../Loader/Loader';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
+import getImages from '../../services/getImages';
 
 
 class App extends Component {
@@ -25,27 +25,25 @@ class App extends Component {
     const nextQuery = this.state.searchQuery;
     if (prevQuery !== nextQuery) {
       this.fetchImages();
-    }
+      }
+      window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+    
   }
 
   
   fetchImages = () => {
     this.setState({ loading: true });
     const { page, searchQuery } = this.state;
-    const URL = `https://pixabay.com/api/?q=${searchQuery}&page=${page}&key=18952122-26c4c8572f246f891e5c3799b&image_type=photo&orientation=horizontal&per_page=12`;
-    axios
-      .get(URL)
-      .then(resp => resp.data.hits)
+    getImages (page, searchQuery)
       .then(arr => {
         this.setState((prevState) => ({
           images: [...prevState.images, ...arr],
           page: prevState.page + 1
         })
         )
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: 'smooth',
-        });
       })
       .catch(error => this.setState({ error }))
       .finally(()=> this.setState ({loading: false}))
